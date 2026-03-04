@@ -25,39 +25,58 @@ const btn = document.querySelector(".search")
 btn.addEventListener("click", getWeather)
 
 async function getWeather(e) {
-    console.log("button was clicked")
-    e.preventDefault()
+
+    if (e && e.preventDefault) e.preventDefault()
+
     const input = document.querySelector(".city")
     const city = input.value.trim()
 
-    if (city == "") {
+    if (city === "") {
         alert("Please Enter a city")
         return
     }
-    const apiKey = "Your_api_key"
 
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+    const apiKey = "YOUR_API_KEY"
 
+    const url =
+    `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
 
     try {
+
         const response = await fetch(url)
         const data = await response.json()
-        console.log(data)
 
-        document.querySelector(".name").innerText = `${data.name},India`
-        document.querySelector(".temp").innerHTML = `${data.main.feels_like}&deg;C`
-        document.querySelector(".pressure").innerHTML = `${data.main.pressure}&nbsp;hPa`
-        document.querySelector(".humidity").innerText = `${data.main.humidity} %`
+        if (data.cod !== 200) {
+            alert(data.message)
+            return
+        }
 
-        const weatherMain = data.weather[0].main; // "Rain", "Clear", etc.
-        const iconHTML = weatherIcons[weatherMain] || '<i class="fa-solid fa-question"></i>';
+        document.querySelector(".name").innerText =
+        `${data.name}, ${data.sys.country}`
 
-        document.querySelector(".icon").innerHTML = iconHTML;
+        document.querySelector(".temp").innerHTML =
+        `${data.main.feels_like}&deg;C`
 
-    } catch (error) {
-        console.log("Error: ", error)
+        document.querySelector(".pressure").innerHTML =
+        `${data.main.pressure} hPa`
+
+        document.querySelector(".humidity").innerText =
+        `${data.main.humidity} %`
+
+        const weatherMain = data.weather[0].main
+
+        const iconHTML =
+        weatherIcons[weatherMain] ||
+        '<i class="fa-solid fa-question"></i>'
+
+        document.querySelector(".icon").innerHTML = iconHTML
+
+    }
+
+    catch (error) {
+        console.log("Error:", error)
+        alert("Something went wrong")
     }
 
     input.value = ""
 }
-
