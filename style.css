@@ -1,30 +1,92 @@
-*{
-    margin: 0px;
-    padding: 0px;
+* {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
     font-family: sans-serif;
 }
 
-body{
-    background-color: black;
-    height: 700px;
+body {
+    height: 100vh;
+    background: linear-gradient(-45deg, #1e3c72, #2a5298, #0f2027, #203a43);
+    background-size: 400% 400%;
+    animation: gradientMove 10s ease infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.container{
+@keyframes gradientMove {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.bg-animation {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.bg-animation span {
+    position: absolute;
+    display: block;
+    width: 20px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    animation: float 25s linear infinite;
+    border-radius: 50%;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(100vh) scale(0);
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-10vh) scale(1);
+        opacity: 0;
+    }
+}
+
+.container {
     width: 450px;
     height: 500px;
-    background:linear-gradient(90deg,rgba(42, 123, 155, 1) 0%, rgba(53, 212, 119, 1) 100%, rgba(237, 221, 83, 1) 92%);
-    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
     border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+
     display: flex;
     align-items: center;
     justify-content: space-evenly;
     flex-direction: column;
-    margin: auto;
-    margin-top: 120px;
+
+    transition: 0.3s ease;
 }
 
-.searchbar{
+.container:hover {
+    transform: scale(1.02);
+}
+
+.searchbar {
     display: flex;
     justify-content: center;
     gap: 10px;
@@ -33,44 +95,43 @@ body{
 .city {
     height: 50px;
     width: 290px;
-    border: 2px solid rgba(255, 255, 255, 0.3); 
+    border: 2px solid rgba(255, 255, 255, 0.3);
     border-radius: 50px;
     padding-left: 20px;
-    transition: all 0.3s ease; 
-    background-color: rgba(255, 255, 255, 0.05); 
+    transition: all 0.3s ease;
+    background-color: rgba(255, 255, 255, 0.05);
     color: white;
 }
 
-.city::placeholder{
+.city::placeholder {
     color: white;
     font-weight: 700;
 }
 
-.search{
+.city:focus {
+    border: 2px solid #d3ebe3;
+    outline: none;
+}
+
+.search {
     height: 50px;
     width: 50px;
     border: none;
     border-radius: 50%;
-    transition: all 0.5s ease;
+    transition: all 0.4s ease;
     cursor: pointer;
 }
 
-.city:focus {
-    border: 2px solid #d3ebe3; 
-    outline: none;
-}
-
-.search i{
+.search i {
     font-size: 20px;
-   
 }
 
-.search:hover{
-    transform: translateY(-5px);
+.search:hover {
+    transform: translateY(-5px) scale(1.1);
+    background-color: #fff;
 }
 
-.icon{
-    font-weight: 500;
+.icon {
     text-align: center;
 }
 
@@ -79,88 +140,62 @@ body{
     color: white;
 }
 
-.icon-wrapper{
+.icon-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
     gap: 10px;
 }
 
-.temp{
+.temp {
     color: white;
     font-size: 38px;
     font-weight: 700;
 }
 
-.name{
+.name {
     color: white;
-    font-size: 25px;  
+    font-size: 25px;
 }
 
-.info{
+.info {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
     gap: 40px;
 }
 
-.info1{
+.info1,
+.info2 {
     flex: 1;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
-}
-.info2{
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    padding-left: 30px;
+    gap: 10px;
 }
 
-.info1logo i{
+.info1logo i,
+.info2logo i {
     color: white;
     font-size: 30px;
-    padding-right: 10px;
 }
 
-.info1info{
+.info1info,
+.info2info {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    justify-content: space-around;
 }
 
-.info1info p{
+.info1info p,
+.info2info p {
     color: white;
     font-weight: 700;
     font-size: 20px;
 }
-.info2logo i{
-    color: white;
-    font-size: 30px;
-    padding-right: 10px;
+
+.humidity {
+    font-size: 40px;
 }
 
-.info2info{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: space-around;
-}
-
-.info2info p{
-    color: white;
-    font-weight: 700;
-    font-size: 20px;
-    width: 100%;
-}
-
-.humidity{
-    font-size: 55px;
-}
-
-.pressure{
-    width: 110px
+.pressure {
+    font-size: 40px;
 }
