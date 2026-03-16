@@ -36,7 +36,7 @@ async function getWeather(e) {
         return
     }
 
-    const apiKey = "YOUR_API_KEY"
+    const apiKey = "ee419555e2a7a44fd11b71ea7164ef0f"
 
     const url =
     `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
@@ -79,4 +79,19 @@ async function getWeather(e) {
     }
 
     input.value = ""
+}
+
+
+const bg = document.querySelector(".bg-animation");
+
+if (bg) {
+    for (let i = 0; i < 30; i++) {
+        const span = document.createElement("span");
+
+        span.style.left = Math.random() * 100 + "vw";
+        span.style.animationDuration = (10 + Math.random() * 20) + "s";
+        span.style.width = span.style.height = (10 + Math.random() * 20) + "px";
+
+        bg.appendChild(span);
+    }
 }
